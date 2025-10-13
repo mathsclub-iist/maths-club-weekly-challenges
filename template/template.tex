@@ -11,13 +11,25 @@
 \usepackage{hyperref}       % Clickable links
 \usepackage{xcolor}
 \usepackage{enumitem}       % nicer lists
-
+\usepackage{tikz} % required for \foreach
+\usepackage{ifthen} % For logic
+\usepackage{pifont} % for stars and symbols
 %------------------ User-editable metadata ------------------%
 \newcommand{\challengenumber}{1}                % change weekly challenge number
 \newcommand{\datefield}{\today}           % change date
 \newcommand{\submissiondatefield}{25 Oct, 2025}           % change date
 \newcommand{\submissionlink}{https://forms.gle/GLMsxBVwLkV5kedp7} % change link
 \newcommand{\repolink}{https://github.com/mathsclub-iist/maths-club-weekly-challenges}
+\newcommand{\difficulty}[1]{%
+	\textbf{Difficulty: }%
+	\foreach \i in {1,...,5}{%
+		\ifnum\i>#1
+		\textcolor{gray!60}{\ding{72}}% empty star (gray)
+		\else
+		\textcolor{orange}{\ding{72}}% filled star (orange)
+		\fi
+	}%
+}
 %------------------ Page Setup ------------------%
 \geometry{
 	top=1in,
@@ -56,7 +68,7 @@
 	\begin{tcolorbox}[
 		colback=gray!5,
 		colframe=blue!70!black,
-		title=\textbf{Challenge Question},
+		title={\textbf{Challenge Question}\hfill\textbf{\difficulty{4}}},
 		fonttitle=\large\bfseries,
 		boxrule=0.8pt,
 		arc=3pt,
